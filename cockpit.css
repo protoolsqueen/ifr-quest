@@ -85,3 +85,43 @@
 @media(max-width:650px){.hangar-stage{height:600px;min-height:600px}.hangar-interface{padding:15px}.hangar-title{font-size:38px}.hangar-meta{font-size:9px}.hangar-cta .btn{width:100%;min-height:48px}.hangar-main{margin-bottom:0}.hangar-detail{margin:7px 0 10px;font-size:12px}.hangar-skins{gap:5px;margin-top:9px}.hangar-skins>b{flex-basis:100%;font-size:9px}.aircraft-paint{font-size:9px;min-height:36px;padding:5px 7px}.aircraft-paint .paint-dot{width:13px;height:13px}.hangar-note{font-size:9px}.cp-mission-select{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.cp-sector{min-height:76px}.cp-sector strong{font-size:12px}.cp-deck{padding:0 5px 9px}.cp-window{height:94px}.cp-instruments{grid-template-columns:1fr 1fr;gap:5px;padding:8px 0 3px;transform:none}.cp-standby{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:7px;padding:8px}.cp-standby-gauge{width:42px;height:42px}.cp-standby button{flex:1;min-height:42px}.cp-display{min-height:160px;border-width:3px;border-radius:8px}.cp-screenbar{font-size:8px;padding:5px}.cp-pfd-visual{padding:3px;gap:3px;min-height:126px}.cp-airspeed,.cp-altitude{min-width:34px;padding:5px 2px}.cp-airspeed small,.cp-altitude small{font-size:7px}.cp-airspeed strong,.cp-altitude strong{font-size:13px}.cp-horizon{border-width:3px}.cp-mfd-map{height:129px}.cp-mfd-readout{font-size:8px;padding:6px}.cp-system-status{font-size:8px;padding:5px}.cp-lesson{gap:9px;margin:12px 0}.cp-task,.cp-brief{padding:16px}.cp-method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cp-readout-status{font-size:9px}}
 @media(max-width:360px){.brand small{display:none}.nav-link{font-size:9px;padding:5px 7px}.hangar-stage{height:610px}.hangar-title{font-size:33px}.cp-mfd-readout{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.hangar-stage *{animation:none!important;transition:none!important}}
+
+/* Volpar 3D viewer: controls remain responsive on mobile and when 3D fails. */
+.volpar-model{display:none;position:absolute;top:0;right:0;width:66%;height:76%;z-index:0;background:transparent;--poster-color:transparent;touch-action:pan-y}
+.volpar-model.volpar-loaded{display:block}
+.hangar-interface{pointer-events:none}
+.hangar-interface button,.hangar-interface a{pointer-events:auto;touch-action:manipulation}
+.hangar-interface .hangar-main{position:relative;z-index:2}
+.hangar-stage .hangar-interface{z-index:2}
+.hangar-stage .hangar-cta{position:relative;z-index:4}
+.cp-window-label{position:absolute;bottom:10px;left:15px;z-index:3;color:#dce9f5;font:700 10px ui-monospace,monospace}
+.cp-window .cp-sky,.cp-window .cp-ground,.cp-window .cp-horizon-line,.cp-horizon .cp-sky,.cp-horizon .cp-land{pointer-events:none}
+.cp-window .cp-sky,.cp-window .cp-ground,.cp-window .cp-horizon-line{display:none}
+.cp-horizon .cp-sky,.cp-horizon .cp-land,.cp-aircraft-mark{display:none}
+.cp-topline{display:flex;gap:12px;align-items:center;justify-content:space-between;color:#96c2d4;font:700 11px ui-monospace,monospace}
+.cp-memory{background:#153047;border:1px solid #39627a;border-radius:12px;padding:12px;overflow-wrap:anywhere}
+.cp-memory b{color:#8bddf2;font-size:11px;letter-spacing:.08em}
+.cp-action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.cp-action-row button{min-height:50px;flex:1}
+.cp-brief button{margin-top:10px;min-height:48px}
+.cp-sector{position:relative}
+.cp-sector small,.cp-sector span{font:700 10px ui-monospace,monospace;color:#8caec6}
+.cp-mfd-detail{position:absolute;bottom:12px;left:12px;font:750 12px ui-monospace,monospace;color:#8fdaf2}
+.cp-map-plane{position:absolute;top:45%;left:48%;font-size:25px;color:#cff9ff;transform:rotate(18deg)}
+.cp-standby>span{font:700 10px ui-monospace,monospace;color:#b4d5e3}
+.cp-standby>strong{font:750 10px ui-monospace,monospace;color:#9be4ce}
+#cpHint,#cpNext{white-space:normal}
+@media(max-width:650px){
+.volpar-model{top:0;left:0;width:100%;height:52%;pointer-events:auto}
+.hangar-interface{padding:14px}
+.hangar-main{margin-top:auto}
+.hangar-title{max-width:350px;text-shadow:0 4px 12px #07111f,0 8px 26px #07111f}
+.hangar-detail{background:#07111fa9;border-radius:8px;padding:5px 8px;max-width:350px}
+.hangar-cta{flex-direction:column}
+.hangar-cta .btn{width:100%}
+.hangar-skins{gap:6px}
+.cp-action-row{flex-direction:column}
+.cp-action-row button{width:100%}
+.cp-window-label{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.volpar-model{animation:none!important}}
