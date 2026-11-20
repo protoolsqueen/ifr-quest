@@ -35,6 +35,7 @@ html{overflow-x:clip}button,[role="button"]{touch-action:manipulation}button{min
 @media(max-width:360px){.primary-nav{gap:0}.nav-link{padding-inline:5px}.brand-symbol{display:none}.hero-copy h1{font-size:clamp(32px,11vw,46px)}}
 </style>
 <link rel="stylesheet" href="./cockpit.css">
+<link rel="stylesheet" href="./acs-arcade.css">
 <script type="module" src="https://unpkg.com/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -219,6 +220,6 @@ $('studyFlashcard').addEventListener('touchstart',e=>{if(e.touches.length===1)to
 $('studyFlashcard').addEventListener('touchend',e=>{if(!touchStart||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){e.preventDefault();e.stopPropagation();studyGo(dx<0?1:-1)}},{passive:false});
 renderHome();renderStudy();renderCounters();logEvent('game_opened');
 </script>
-<script defer src="./hangar3d.js"></script><script defer src="./cockpit.js"></script><script defer src="./volpar-model.js"></script>
+<script defer src="./hangar3d.js"></script><script defer src="./acs-arcade.js"></script><script defer src="./volpar-model.js"></script>
 </body>
 </html>

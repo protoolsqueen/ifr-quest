@@ -28,3 +28,20 @@ These are educational conceptual simulations, not a faithful cockpit/avionics mo
 ## Keeping it current
 
 Edits committed to `main` update the same GitHub Pages URL after publishing. For easier iPhone use, tell Jack to open the URL in Safari and use Share → Add to Home Screen. Existing local progress remains under the same site origin and storage key. Public GitHub Pages are not access-controlled, even if the page requests no indexing.
+
+## ACS Arcade update (feature branch)
+
+The Cockpit tab now uses `acs-arcade.js` and `acs-arcade.css` rather than the original CSS-mock instrument panel. It preserves the Hangar, Study, original question modes, and Flight Log.
+
+- Four FAA-S-ACS-8C knowledge codes, three rounds each (12 scenarios total): altitude planning, LP/LNAV minima, initial ILS descent-rate estimates, and instrument failure-source diagnosis.
+- Mobile-first large touch targets, inline SVG graphics, progress per sector, XP, feedback, round replay, and local persistence in `ifrQuestArcadeV1`.
+- The actual Open Aviation Components `<unusual-attitudes>` six-pack is loaded on demand inside Failure Detective through its unmodified MPL-2.0 module published by Open Aviation Solutions: https://github.com/Open-Aviation-Solutions/open-aviation-components. Internet access is required; a link to the official demo appears if the import fails. This is supplemental upset recognition, distinct from diagnosing an instrument failure.
+- `Jack_N404CK_Volpar_Turboliner_II_spline.glb` is the **original, approximate** N404CK-inspired GLB, not the converted X-Plane mesh nor a manufacturer-verified model. The original source-derived X-Plane mesh is deliberately not published pending author permission. `model-viewer` attempts to load this GLB; the old lightweight aircraft image remains fallback.
+
+### Verification state
+
+- JavaScript syntax checked with Node.js locally, GLB reopened in trimesh (55 meshes, 12,280 triangles).
+- GitHub branch files and binary blob committed.
+- Chromium headless visual smoke test could not complete in the sandbox; mobile browser and external CDN module have **not** been live verified.
+- Published GitHub Pages remains on `main` until PR review and merge.
+
