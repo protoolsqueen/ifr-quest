@@ -34,17 +34,31 @@ html{overflow-x:clip}button,[role="button"]{touch-action:manipulation}button{min
 @media(max-width:600px){.play-header{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.play-header [data-act="abandon"]{width:100%;justify-content:center;border:1px solid #446178;background:#172d42}.answer-option{min-height:64px}.panel-gauges button{min-height:54px}.btn{min-height:48px}}
 @media(max-width:360px){.primary-nav{gap:0}.nav-link{padding-inline:5px}.brand-symbol{display:none}.hero-copy h1{font-size:clamp(32px,11vw,46px)}}
 </style>
+<link rel="stylesheet" href="./cockpit.css">
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
 </head>
 <body>
 <div class="ambient ambient-a" aria-hidden="true"></div><div class="ambient ambient-b" aria-hidden="true"></div>
 <div class="app-shell">
  <header class="topbar">
   <button type="button" class="brand" data-act="view" data-id="home" aria-label="IFR Quest home"><span class="brand-symbol">✧</span><span><strong>IFR <i>QUEST</i></strong><small>JACK'S FLIGHT ACADEMY</small></span></button>
-  <nav class="primary-nav" aria-label="Sections"><button type="button" data-act="view" data-id="home" class="nav-link active">Hangar</button><button type="button" data-act="view" data-id="study" class="nav-link">Study</button><button type="button" data-act="view" data-id="stats" class="nav-link">Flight log</button></nav>
+  <nav class="primary-nav" aria-label="Sections"><button type="button" data-act="view" data-id="home" class="nav-link active">Hangar</button><button type="button" data-act="view" data-id="cockpit" class="nav-link nav-cockpit">Cockpit</button><button type="button" data-act="view" data-id="study" class="nav-link">Study</button><button type="button" data-act="view" data-id="stats" class="nav-link">Flight log</button></nav>
   <button type="button" data-act="sound" id="soundBtn" class="icon-btn" aria-label="Toggle game sound" aria-pressed="false"><span aria-hidden="true">♪</span></button>
  </header>
  <main id="main">
-  <section id="view-home" class="view">
+  <section id="view-home" class="view"><section class="hangar-stage" aria-label="Interactive three-dimensional academy hangar">
+<canvas id="hangar3d" aria-hidden="true"></canvas>
+<model-viewer id="volparViewer" class="volpar-model" camera-controls auto-rotate rotation-per-second="6deg" interaction-prompt="none" touch-action="pan-y" loading="lazy" shadow-intensity=".7" exposure="1.3" environment-image="neutral" camera-orbit="20deg 78deg 105%" field-of-view="32deg" alt="Jack's Volpar Turboliner II 3D aircraft model"></model-viewer>
+<div class="hangar-interface">
+<div class="hangar-meta"><span>HANGAR 01 // N404CK</span><span>IFR FLIGHT ACADEMY</span></div>
+<div class="hangar-main">
+<div class="tiny-label">YOUR AIRCRAFT · YOUR MISSIONS</div>
+<h2 class="hangar-title">JACK'S <em>FLIGHT ACADEMY.</em></h2>
+<p class="hangar-detail">Four weak points. Four hands-on cockpit stations. One instrument-rated pilot who knows why every decision works.</p>
+<div class="hangar-cta"><button class="btn primary" type="button" data-act="view" data-id="cockpit">ENTER INTERACTIVE COCKPIT →</button><button class="btn outline" type="button" data-act="start" data-id="campaign">START 20-ROUND MISSION</button><button class="btn subtle" type="button" data-act="view" data-id="stats">MY FLIGHT LOG</button></div>
+<div class="hangar-skins" role="group" aria-label="Choose aircraft paint"><b>PAINT SHOP</b><button class="aircraft-paint" type="button" data-paint="classic" aria-pressed="true" style="--swatch:#e9edf1"><span class="paint-dot"></span>Default</button><button class="aircraft-paint" type="button" data-paint="sonic" aria-pressed="false" style="--swatch:#3476d8"><span class="paint-dot"></span>Sonic Blue Pearl</button><button class="aircraft-paint" type="button" data-paint="yellow" aria-pressed="false" style="--swatch:#f8c820"><span class="paint-dot"></span>Yellow</button><button class="aircraft-paint" type="button" data-paint="red" aria-pressed="false" style="--swatch:#d83c43"><span class="paint-dot"></span>Red</button></div>
+<p class="hangar-note" id="aircraftStatus" aria-live="polite">Hangar simulation active · aircraft paint saved on this device</p>
+</div></div></section>
    <div class="home-intro">
     <div class="overline"><span class="live-dot"></span> FLIGHT SCHOOL // KNOWLEDGE RECOVERY</div>
     <div class="hero-copy"><div><div class="tiny-label">INSTRUMENT RATING · AIRPLANE</div><h1>YOU PASSED.<br><em>NOW MASTER IT.</em></h1><p>90% on the written. Four ACS knowledge gaps. One mission: make the next 10% impossible to forget.</p></div><div class="hero-stats"><div class="hero-score"><span>WRITTEN TEST</span><strong>90<span>%</span></strong><small>Already passed</small></div><div class="hero-score small"><span>TRAINING FOCUS</span><strong>04</strong><small>ACS knowledge areas</small></div></div></div>
@@ -77,7 +91,25 @@ html{overflow-x:clip}button,[role="button"]{touch-action:manipulation}button{min
    <div id="topicsGrid" class="topics-grid"></div>
    <div class="home-note"><strong>Private to this device:</strong> The Flight Log saves your answer choices and study activity locally. You choose when to send a report to Eve. Nothing is transmitted automatically.</div><div class="home-note"><strong>Already a win: 90% passes.</strong> These are original study scenarios, not the FAA test questions. The game is for learning; use current FAA publications, approved avionics guidance and your instructor for real flight decisions.</div>
   </section>
-  <section id="view-study" class="view" hidden>
+  <section id="view-cockpit" class="view" hidden>
+<header class="cockpit-heading"><span class="eyebrow">INTERACTIVE / AVIONICS ACADEMY</span><h1>LEARN IT BY FLYING IT.</h1><p>Recon → Identify → Apply → Checkride. Manipulate the instruments, commit your decision, and get an immediate debrief. Concept simulator, not an aircraft-specific cockpit.</p></header>
+<div class="cp-mission-select" role="group" aria-label="Choose a training sector">
+<button class="cp-sector" type="button"><small>SECTOR 01</small><strong>IFR ALTITUDE</strong><span>IR.I.C.K2</span></button>
+<button class="cp-sector" type="button"><small>SECTOR 02</small><strong>LNAV / LP</strong><span>IR.VI.A.K1</span></button>
+<button class="cp-sector" type="button"><small>SECTOR 03</small><strong>GLIDESLOPE</strong><span>IR.VI.B.K1</span></button>
+<button class="cp-sector" type="button"><small>SECTOR 04</small><strong>DISPLAY FAILURE</strong><span>IR.VII.D.K2</span></button></div>
+<div class="cp-deck">
+<div class="cp-window"><div class="cp-sky"></div><div class="cp-horizon-line"></div><div class="cp-ground"></div><div class="cp-window-label">SIMULATED FINAL APPROACH · VISUAL REFERENCE ONLY</div></div>
+<div class="cp-instruments">
+<div class="cp-display" role="group" aria-label="Illustrative primary flight display">
+<div class="cp-screenbar"><span>PRIMARY FLIGHT DISPLAY</span><span id="cpAnnunciation">GPS</span></div><div class="cp-pfd-visual" id="cpPfdVisual"><div class="cp-airspeed"><small>GS KTS</small><strong id="cpAirspeed">118</strong></div><div class="cp-horizon"><div class="cp-sky"></div><div class="cp-land"></div><div class="cp-aircraft-mark">▲</div></div><div class="cp-altitude"><small>ALT FT</small><strong id="cpAltitude">7,000</strong></div></div><div class="cp-mfd-readout"><span id="cpNavMode">GPS</span><b id="cpTarget">STANDBY</b></div></div>
+<div class="cp-display" role="group" aria-label="Illustrative multifunction navigation display"><div class="cp-screenbar"><span>NAVIGATION DISPLAY</span><span>IFR</span></div><div class="cp-mfd-map"><div class="cp-map-route"></div><span class="cp-map-plane">▲</span><div class="cp-mfd-detail" id="cpMfdDetail">OBSTACLE 6,300 FT</div></div><div class="cp-system-status" id="cpSystemStatus">IFR CROSS COUNTRY</div></div>
+<div class="cp-standby"><span>STANDBY ATTITUDE</span><div class="cp-standby-gauge"><i></i></div><strong id="cpStandby">STANDBY AVAILABLE</strong></div></div>
+<div class="cp-deck-tip" id="cpDeckTip">Move the instrument controls and observe the indications.</div>
+</div>
+<div class="cp-lesson"><div class="cp-task"><div class="cp-topline"><span id="cpCode">IR.I.C.K2</span><span id="cpCounter">0 / 4 SECTORS CLEARED</span></div><h2 id="cpTitle">MISSION: VERTICAL CLEARANCE</h2><p id="cpDescription"></p><div id="cpDeckActions"></div><div class="cp-action-row"><button class="btn primary" type="button" id="cpCommit">LOCK IN DECISION →</button><button class="btn outline" type="button" id="cpHint">REVEAL MEMORY ANCHOR</button></div><div class="cp-result" id="cpResult" hidden></div></div><aside class="cp-brief"><span class="eyebrow">RECON / MENTAL MODEL</span><h3>READ THE SCENE</h3><p id="cpBrief"></p><div class="cp-memory"><b>REMEMBER THIS</b><p id="cpMemory"></p></div><button class="btn subtle full" id="cpNext" type="button">NEXT TRAINING SECTOR →</button><button class="btn outline full" type="button" data-act="view" data-id="home">← RETURN TO HANGAR</button></aside></div>
+<div class="cp-method-grid"><div><b>01 · RECON</b><p>Observe what the instruments actually show.</p></div><div><b>02 · IDENTIFY</b><p>Find the underlying FAA principle.</p></div><div><b>03 · APPLY</b><p>Move a control or make a flight decision.</p></div><div><b>04 · CHECKRIDE</b><p>Explain it without visual prompts.</p></div></div>
+</section><section id="view-study" class="view" hidden>
    <div class="page-heading"><div class="eyebrow">TRAINING / THE STUDY HANGAR</div><h1>Burn the concepts into memory.</h1><p>16 flip cards from Jack's four ACS codes. Tap the card to reveal, or swipe between cards on mobile.</p></div>
    <div class="chip-row" id="studyFilters" role="group" aria-label="Filter study cards"></div>
    <div class="study-columns"><div class="study-card" role="button" tabindex="0" aria-label="Tap to flip flashcard" id="studyFlashcard"><div class="flash-top"><span id="studyCode">IR.I.C.K2</span><span id="cardIndex">01 / 16</span></div><div class="flash-caption" id="cardFace">QUESTION</div><div class="flash-body" id="cardText"></div><div class="flash-bottom"><span id="flipLabel">TAP TO REVEAL ANSWER</span><span>↻</span></div></div><div class="study-side"><span class="eyebrow">HOW TO LEARN</span><h3>Active recall beats re-reading.</h3><p>Try answering before flipping. If you cannot explain *why*, study the rule or limitation and try again.</p><div class="study-progress"><div id="studyDots"></div></div><div class="study-buttons"><button type="button" class="btn subtle" data-act="prev-card">← Previous</button><button type="button" class="btn primary" data-act="next-card">Next card →</button></div><button type="button" class="btn outline full" data-act="start" data-id="campaign">Ready? Take the 20-round mission →</button></div></div>
@@ -130,7 +162,7 @@ Selected: ${choice}
 Correct: ${answer}${e.hint?' · Hint used':''}`)}lines.push('','Only the person who shares this report sends this data; nothing syncs automatically.');return lines.join('\n')}
 async function shareReport(){const text=reportText();logEvent('report_shared_action');if(navigator.share){try{await navigator.share({title:'Jack · IFR Quest Flight Report',text});showToast('REPORT SHARED');return}catch(e){if(e&&e.name==='AbortError'){showToast('SHARING CANCELED');return}}}try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);showToast('REPORT COPIED · PASTE INTO A MESSAGE');return}}catch(e){}try{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px;top:0;';document.body.append(ta);ta.focus();ta.select();const copied=document.execCommand('copy');ta.remove();if(copied){showToast('REPORT COPIED · PASTE INTO A MESSAGE');return}}catch(e){}const pane=$('reportFallback');pane.hidden=false;$('reportText').value=text;$('reportText').focus();$('reportText').select();showToast('SELECT & COPY THE REPORT BELOW')}
 function showToast(text){const el=$('toast');el.textContent=text;el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.hidden=true},2500)}
-function switchView(next){const allowed=['home','study','play','results','stats'];if(!allowed.includes(next))return;if(next==='study'&&view!=='study')logEvent('study_opened');view=next;allowed.forEach(v=>{$('view-'+v).hidden=v!==next});document.querySelectorAll('.nav-link').forEach(b=>b.classList.toggle('active',b.dataset.id===next));if(next==='home')renderHome();if(next==='study')renderStudy();if(next==='stats')renderStats();window.scrollTo(0,0)}
+function switchView(next){const allowed=['home','cockpit','study','play','results','stats'];if(!allowed.includes(next))return;if(next==='study'&&view!=='study')logEvent('study_opened');view=next;allowed.forEach(v=>{$('view-'+v).hidden=v!==next});document.querySelectorAll('.nav-link').forEach(b=>b.classList.toggle('active',b.dataset.id===next));if(next==='home')renderHome();if(next==='study')renderStudy();if(next==='stats')renderStats();window.scrollTo(0,0)}
 function shuffle(items,rand=Math.random){const v=[...items];for(let i=v.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[v[j],v[i]]=[v[i],v[j]]}return v}
 function seedRandom(seed){return()=>{let t=seed+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296}}
 function dateSeed(){const d=new Date(),name=`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;return Array.from(name).reduce((a,c)=>Math.imul(a^c.charCodeAt(0),16777619),2166136261)>>>0}
@@ -187,5 +219,6 @@ $('studyFlashcard').addEventListener('touchstart',e=>{if(e.touches.length===1)to
 $('studyFlashcard').addEventListener('touchend',e=>{if(!touchStart||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){e.preventDefault();e.stopPropagation();studyGo(dx<0?1:-1)}},{passive:false});
 renderHome();renderStudy();renderCounters();logEvent('game_opened');
 </script>
+<script defer src="./hangar3d.js"></script><script defer src="./cockpit.js"></script><script defer src="./volpar-model.js"></script>
 </body>
 </html>
