@@ -49,3 +49,17 @@ These are *conceptual* educational exercises, not flight simulator procedures or
 - Basic click and touch-target checks on mobile viewport passed.
 - **Pending:** live GitHub Pages iOS Safari device timing/interaction verification. A browser's frame scheduling may change reaction measurements; do not benchmark across devices without calibration.
 
+
+
+## Tower Link — live two-player ATC radio training
+
+Open [ATC Tower Link](./atc.html) from the top navigation or hangar. Controller (Eve) chooses **Create ATC room** and shares the generated invite URL; Pilot (Jack) opens the invitation and joins. Both grant microphone access and hold **PUSH TO TALK** when transmitting.
+
+- WebRTC two-way browser audio with half-duplex push-to-talk, PeerJS 1.5.5 signaling over the default public PeerJS Cloud; uses secure GitHub Pages HTTPS for microphone permission.
+- Two-player live scenario sync, a random 10-character room code, ATC/pilot role selection, 18 scenarios across the original four FAA instrument-rating weak areas plus radio phraseology/hold-short/readback training.
+- 8-, 12-, and 20-second decision windows; randomized answer positions; voice-only mode; immediate decision latency; controller-manual spoken-readback grading; decision + readback + speed debrief.
+- Headphone-recommended audio, replay/mic controls, explicit connection status, local solo-practice fallback, and downloadable local JSON session report.
+- Sessions are **not** stored on a server or automatically transcribed. Audio is not recorded; speech correctness is rated by the human controller. The public PeerJS signaling service handles session setup. It does not guarantee a connection on every cellular/corporate network. No TURN relay is supplied, so an audio connection may fail behind restrictive NATs.
+- Room links are random but not authenticated: don't use this for sensitive communications. This is a fictional educational simulator, not a real ATC frequency or FAA-approved trainer.
+
+**QA and release state:** HTML/JavaScript syntax validated with Node.js. Headless Chromium tested at 320, 390, 768, 1280 px with no horizontal overflow or JavaScript exceptions. All 18 randomized solo rounds passed. A two-browser simulated signaling test exercised room creation, role join, scenario broadcast, response sync, controller grading, and pilot results. **A real WebRTC microphone connection between separate physical phones and Safari background behavior remain unverified and need an on-device acceptance test.**
