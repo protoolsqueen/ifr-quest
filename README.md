@@ -28,3 +28,24 @@ These are educational conceptual simulations, not a faithful cockpit/avionics mo
 ## Keeping it current
 
 Edits committed to `main` update the same GitHub Pages URL after publishing. For easier iPhone use, tell Jack to open the URL in Safari and use Share → Add to Home Screen. Existing local progress remains under the same site origin and storage key. Public GitHub Pages are not access-controlled, even if the page requests no indexing.
+
+## Reflex Lab — reaction speed and decision efficiency
+
+Open **Reflex lab** in the site navigation or use **TRAIN REFLEXES + DECISIONS** from the Hangar.
+
+- **Signal Strike:** 12 randomized go/no-go trials. Measures correct GO reaction latency, response inhibition, and false starts. HOLD requires withholding action.
+- **Scan Shift:** 12 instrument-based scenarios across IR.I.C.K2, IR.VI.A.K1, IR.VI.B.K1, and IR.VII.D.K2. Switches task rules across rounds, with accuracy, median decision latency, and an exploratory switching-cost estimate.
+- **Mayday Stack:** 8 randomized aircraft-priority scenarios from a 12-scenario bank. Scores the first decision, response time, and critical errors separately; unsafe rapid choices earn no points.
+- Three difficulty settings with progressively shorter limits; mobile touch, keyboard entry, accessible high-contrast text, responsive layouts and paused sessions when leaving the view.
+- Game results are stored only on the current device under `ifrQuestReflexV1` (last 30 sessions) and summarized in the **Flight log** view. No server or telemetry is required. Existing study history and keys are untouched.
+
+These are *conceptual* educational exercises, not flight simulator procedures or a validated pilot cognitive assessment. Progress reflects **within-game** speed and accuracy; transfer to real-world aviation decisions is not established. Device input latency and frame scheduling may affect measured milliseconds.
+
+### Reflex Lab QA
+
+- `reaction-lab.js`: syntax validated with Node.js 22.
+- Chromium headless Playwright tests: three modes exercised and all 32 rounds completed; result screen rendered without script exceptions. Timer acceleration was used in one test **only** to exercise full-round logic.
+- Mobile/desktop width checks at 320, 390, 768 and 1280 px: no horizontal overflow or uncaught JavaScript errors in the isolated UI harness.
+- Basic click and touch-target checks on mobile viewport passed.
+- **Pending:** live GitHub Pages iOS Safari device timing/interaction verification. A browser's frame scheduling may change reaction measurements; do not benchmark across devices without calibration.
+
